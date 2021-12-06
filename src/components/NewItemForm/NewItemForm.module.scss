@@ -1,0 +1,17 @@
+@import '../../styles/colors';
+
+.formWrapper {
+  margin: 16px;
+
+  form {
+    text-align: center;
+  }
+}
+
+.input {
+  padding: 16px;
+  font-size: 18px;
+  border: 1px solid $grey;
+  width: 96%;
+  margin: 0 auto;
+}

@@ -6,16 +6,19 @@ export const useTodoList = () => {
   const [todos, setTodos] = useState<TodoItemModel[]>([]);
 
   const addTodo = useCallback((title: string) => {
-    const newTodos = [...todos, {
+    setTodos((prev) => [
+      ...prev,
+      {
         id: nanoid(),
         completed: false,
         title,
-    }];
-    setTodos(newTodos);
-  }, [todos]);
+      }
+    ]);
+  }, []);
 
   const editTodo = useCallback((todo: TodoItemModel) => {
-    const newTodos = todos.map(el => {
+    setTodos((prev) => {
+      return prev.map(el => {
         if (el.id === todo.id) {
             return {
                 ...el,
@@ -23,14 +26,13 @@ export const useTodoList = () => {
             }
         }
         return el;
+      });
     });
-    setTodos(newTodos);
-  }, [todos]);
+  }, []);
 
   const removeTodoById = useCallback((id: string) => {
-    const newTodos = todos.filter(el => el.id !== id);
-    setTodos(newTodos);
-  }, [todos]);
+    setTodos((prev) => prev.filter(el => el.id !== id));
+  }, []);
 
   return {
     todos,

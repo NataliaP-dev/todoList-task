@@ -1,0 +1,14 @@
+@import '../../styles/colors';
+
+.title {
+  color: $blue;
+  text-align: center;
+  font-weight: bold;
+}
+
+.noItems {
+  color: $grey-primary;
+  font-style: italic;
+  text-align: center;
+  margin-top: 16px;
+}

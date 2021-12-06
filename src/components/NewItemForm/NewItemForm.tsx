@@ -1,48 +1,31 @@
-import React, { useRef, useState, memo, useEffect } from 'react';
+import React, { useState, memo } from 'react';
+import css from './NewItemForm.module.scss';
 
 interface NewItemFormProps {
   onSubmitted: (title: string) => void;
 }
 
 export const NewItemForm = memo(({ onSubmitted }: NewItemFormProps) => {
-  const [isFormOpened, setIsFormOpened] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState('');
 
-  const onSubmit = () => {
-      onSubmitted(title);
-      setIsFormOpened(false);
-      setTitle('');
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    onSubmitted(title);
+    setTitle('');
   }
 
-  const openForm = () => {
-      setIsFormOpened(true);
-  };
-
-  useEffect(() => {
-      inputRef.current?.focus();
-  }, [isFormOpened]);
-
   return (
-    <div>
-        {
-          isFormOpened ? (
-              <form onSubmit={onSubmit}>
-                  <label>
-                      <span>Todo title:</span>
-                      <input
-                          ref={inputRef}
-                          required
-                          onChange={e => setTitle(e.target.value)}
-                      />
-                  </label>
-                  <button>Save</button>
-              </form>
-            )
-            : (
-                <button onClick={openForm}>New Todo</button>
-            )
-        }
+    <div className={css.formWrapper}>
+      <form onSubmit={onSubmit}>
+        <input
+          className={css.input}
+          required
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          placeholder="Input task name then tap Enter to add"
+        />
+        <input type="submit" hidden/>
+      </form>
     </div>
   );
 });
